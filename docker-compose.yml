@@ -1,0 +1,19 @@
+services: # Serviços a serem executados
+  placeintime:
+    build: . # Build da imagem dockerfile
+    ports:
+      - "3030:8080" # Porta do host e container
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SERVER_PORT=8080
+      - APP_NAME=PlaceInTime
+      - SERVER_ENVIRONMENT=docker
+      - SERVER_VERSION=1.0.0
+    #restart: unless-stopped # Reinicia o container se ele cair
+    container_name: placeintime-backend
+    networks:
+      - placeintime-network # Rede do container
+
+networks:
+  placeintime-network:
+    driver: bridge
