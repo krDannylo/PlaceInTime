@@ -1,6 +1,5 @@
 package com.dev.dj.PlaceInTime.entity;
 
-import com.dev.dj.PlaceInTime.config.Auditable;
 import com.dev.dj.PlaceInTime.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends Auditable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -31,14 +30,10 @@ public class User extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 11)
-    private String phone;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    // @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
-    // private Set<Business> business;
 
 }
