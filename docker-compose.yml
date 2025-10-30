@@ -9,10 +9,32 @@ services: # Serviços a serem executados
       - APP_NAME=PlaceInTime
       - SERVER_ENVIRONMENT=docker
       - SERVER_VERSION=1.0.0
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/placeintime
+      - DB_USER=placeintime_user
+      - DB_PASS=placeintime_pass
     #restart: unless-stopped # Reinicia o container se ele cair
     container_name: placeintime-backend
+    depends_on:
+      - postgres
     networks:
       - placeintime-network # Rede do container
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: placeintime-postgres
+    environment:
+      - POSTGRES_DB=placeintime
+      - POSTGRES_USER=placeintime_user
+      - POSTGRES_PASSWORD=placeintime_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - placeintime-network
+
+volumes:
+  postgres_data:
 
 networks:
   placeintime-network:
