@@ -1,6 +1,5 @@
 # Ignorar arquivos desnecessários para o build Docker
 target/
-!target/PlaceInTime-0.0.1-SNAPSHOT.jar
 .git
 .gitignore
 README.md
@@ -10,5 +9,4 @@ docker-compose.yml
 .mvn/
 mvnw
 mvnw.cmd
-src/
 *.md
