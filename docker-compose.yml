@@ -33,6 +33,19 @@ services: # Serviços a serem executados
     networks:
       - placeintime-network
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: placeintime-pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "8081:80"  # Acesse em http://localhost:8081
+    depends_on:
+      - postgres
+    networks:
+      - placeintime-network
+
 volumes:
   postgres_data:
 
