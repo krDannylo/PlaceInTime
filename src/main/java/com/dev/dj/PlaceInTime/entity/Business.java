@@ -31,9 +31,6 @@ public class Business {
     @Column(nullable = false, length = 100)
     private String address;
 
-    @Column(nullable = false, length = 11)
-    private String phone;
-
     @Column(nullable = false, length = 100)
     private String typeBusiness;
 

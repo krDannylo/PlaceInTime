@@ -34,6 +34,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, length = 11)
+    private String phone;
 
     private LocalDateTime createdAt;
 
@@ -48,7 +50,6 @@ public class User {
 
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
     private Set<Business> business;
-
 
 
 }
