@@ -24,10 +24,9 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //CREATE
     public UserResponseDTO create(UserCreateDTO dto){
-        if (userRepository.existsByEmail(dto.email()) || userRepository.existsByCpf(dto.cpf())){
-            throw new DataConflictException("Data conflict"); //! Melhorar o Tratamento de Erro
+        if (userRepository.existsByEmail(dto.email()) || userRepository.existsByCpf(dto.cpf())  ||  userRepository.existsByPhone(dto.phone())){
+            throw new DataConflictException("Data conflict");
         }
 
         User user = UserMapper.toEntity(dto);
