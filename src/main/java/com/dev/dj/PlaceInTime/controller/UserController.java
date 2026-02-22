@@ -1,5 +1,9 @@
 package com.dev.dj.PlaceInTime.controller;
 
+import com.dev.dj.PlaceInTime.dtos.UserDto;
+import com.dev.dj.PlaceInTime.entity.User;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
@@ -7,11 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.dj.PlaceInTime.dtos.UserCreateDTO;
-import com.dev.dj.PlaceInTime.dtos.UserResponseDTO;
 import com.dev.dj.PlaceInTime.service.UserService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -25,8 +25,8 @@ public class UserController {
 
     // CREATE
     @PostMapping
-    public ResponseEntity<UserResponseDTO> create(@RequestBody @Valid UserCreateDTO dto) {
-        UserResponseDTO response = userService.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<User> create(@RequestBody @Validated(UserDto.UserView.RegistrationPost.class)
+                                           @JsonView(UserDto.UserView.RegistrationPost.class) UserDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
     }
 }

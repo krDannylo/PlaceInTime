@@ -1,14 +1,14 @@
 package com.dev.dj.PlaceInTime.service;
 
-import com.dev.dj.PlaceInTime.dtos.UserCreateDTO;
-import com.dev.dj.PlaceInTime.dtos.UserResponseDTO;
+import com.dev.dj.PlaceInTime.dtos.UserDto;
 import com.dev.dj.PlaceInTime.entity.User;
 import com.dev.dj.PlaceInTime.exception.DataConflictException;
-import com.dev.dj.PlaceInTime.mapper.UserMapper;
 import com.dev.dj.PlaceInTime.repository.UserRepository;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserService {
@@ -24,14 +24,15 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponseDTO create(UserCreateDTO dto){
+    public User create(UserDto dto){
         if (userRepository.existsByEmail(dto.email()) || userRepository.existsByCpf(dto.cpf())  ||  userRepository.existsByPhone(dto.phone())){
             throw new DataConflictException("Data conflict");
         }
 
-        User user = UserMapper.toEntity(dto);
+        var user = new User();
+        BeanUtils.copyProperties(dto,user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return UserMapper.toResponse(user);
+        return user;
     }
 }

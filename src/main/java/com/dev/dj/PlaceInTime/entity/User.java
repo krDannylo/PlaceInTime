@@ -1,6 +1,7 @@
 package com.dev.dj.PlaceInTime.entity;
 
 import com.dev.dj.PlaceInTime.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,9 +28,12 @@ public class User {
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String phone;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
