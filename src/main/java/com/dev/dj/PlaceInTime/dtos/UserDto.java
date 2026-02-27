@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record UserDto(
-        @JsonView(UserResponseDTO.UserView.RegistrationPost.class)
+        @JsonView(UserDto.UserView.RegistrationPost.class)
         @NotBlank(message = "Name cannot be empty.",groups = UserDto.UserView.RegistrationPost.class)
         String name,
         @JsonView(UserDto.UserView.RegistrationPost.class)
@@ -18,6 +18,7 @@ public record UserDto(
         @NotBlank(message = "Email cannot be empty.",groups = {UserDto.UserView.RegistrationPost.class, UserDto.UserView.LoginRequest.class})
         String email,
 
+        @JsonView(UserDto.UserView.RegistrationPost.class)
         @NotBlank(message = "Phone cannot be empty.",groups = UserDto.UserView.RegistrationPost.class)
         @Size(min = 11, max = 11, message = "Phone must have exactly 11 digits.",groups = UserDto.UserView.RegistrationPost.class)
         String phone,

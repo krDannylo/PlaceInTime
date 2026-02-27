@@ -9,11 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class PlaceInTimeApplication {
 
-	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(PlaceInTimeApplication.class, args);
-		SpringApplication.run(PlaceInTimeApplication.class, args);
-		String port = context.getEnvironment().getProperty("server.port");
-		IO.print("Server is running on port: " + port);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PlaceInTimeApplication.class, args);
+    }
 
 }

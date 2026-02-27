@@ -23,10 +23,5 @@ public class UserController {
         this.userService = userService;
     }
 
-    // CREATE
-    @PostMapping
-    public ResponseEntity<User> create(@RequestBody @Validated(UserDto.UserView.RegistrationPost.class)
-                                           @JsonView(UserDto.UserView.RegistrationPost.class) UserDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(dto));
-    }
+
 }

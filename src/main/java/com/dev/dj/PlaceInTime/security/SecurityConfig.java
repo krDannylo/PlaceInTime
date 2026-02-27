@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // sem sessão, JWT é stateless
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()  // rotas públicas
+                        .requestMatchers("/auth/**").permitAll()// rotas públicas
                         .anyRequest().authenticated()             // todo o resto exige token
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // registra o filtro
