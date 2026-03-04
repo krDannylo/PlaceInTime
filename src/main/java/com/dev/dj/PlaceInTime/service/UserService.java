@@ -47,18 +47,22 @@ public class UserService {
     }
 
     public Optional<User> findById(UUID id) {
-        Optional<User> userModelOptional = userRepository.findById(id);
-        if(userModelOptional.isEmpty()){
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isEmpty()){
             throw new DataConflictException("Error: User not found");
         }
-        return userModelOptional;
+        return userOptional;
     }
 
     public User update(UserDto userDto,User user) {
         user.setName(userDto.name());
         user.setPhone(userDto.phone());
         user.setRole(userDto.role());
+        return userRepository.save(user);
+    }
 
+    public User updatePassword(UserDto userDto,User user){
+        user.setPassword(userDto.password());
         return userRepository.save(user);
     }
 
