@@ -5,11 +5,15 @@ import com.dev.dj.PlaceInTime.entity.User;
 import com.dev.dj.PlaceInTime.exception.DataConflictException;
 import com.dev.dj.PlaceInTime.repository.UserRepository;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -36,5 +40,29 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public Optional<User> findById(UUID id) {
+        Optional<User> userModelOptional = userRepository.findById(id);
+        if(userModelOptional.isEmpty()){
+            throw new DataConflictException("Error: User not found");
+        }
+        return userModelOptional;
+    }
+
+    public User update(UserDto userDto,User user) {
+        user.setName(userDto.name());
+        user.setPhone(userDto.phone());
+        user.setRole(userDto.role());
+
+        return userRepository.save(user);
+    }
+
+    public void delete(User user) {
+        userRepository.delete(user);
     }
 }
